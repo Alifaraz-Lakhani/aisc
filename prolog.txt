@@ -1,0 +1,54 @@
+% People
+person(alice).
+person(bob).
+person(carol).
+person(dave).
+person(eve).
+person(frank).
+person(raj).
+% Friendships (bidirectional)
+friend(alice, bob).
+friend(bob, alice).
+friend(bob, carol).
+friend(carol, bob).
+friend(carol, dave).
+friend(dave, carol).
+friend(dave, eve).
+friend(eve, dave).
+friend(eve, frank).
+friend(frank, eve).
+friend(alice, frank).
+friend(frank, alice).
+friend(alice, raj).
+friend(raj, alice).
+% Interests
+interest(alice, hiking).
+interest(alice, cooking).
+interest(bob, hiking).
+interest(bob, chess).
+interest(carol, cooking).
+interest(carol, chess).
+interest(dave, chess).
+interest(dave, soccer).
+interest(eve, hiking).
+interest(eve, soccer).
+interest(frank, cooking).
+are_friends(X, Y) :-
+ friend(X, Y).
+mutual_friend(X, Y, Z) :-
+ friend(X, Z),
+ friend(Y, Z),
+ X \= Y,
+ X \= Z,
+ Y \= Z.
+suggest_friend(X, Y) :-
+ person(X),
+ person(Y),
+ \+ friend(X, Y),
+ X \= Y,
+ mutual_friend(X, Y, _).
+friend_of_friend(X, Z) :-
+ friend(X, Y),
+ friend(Y, Z),
+ X \= Z,
+ \+ friend(X, Z).
